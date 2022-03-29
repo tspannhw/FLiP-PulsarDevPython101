@@ -18,18 +18,21 @@ pip3 install pulsar-client=='2.9.1[all]'
 ### Example
 
 ````
+    # MQTT
     import paho.mqtt.client as mqtt
     client = mqtt.Client("rpi4-iot")
     client.connect("pulsar1", 1883, 180)
     client.publish("persistent://public/default/mqtt-2", payload=json_string, qos=0, retain=True)
     print("sent mqtt: " + json_string) 
 
+    # Apache Kafka
     from kafka import KafkaProducer
     producer = KafkaProducer(bootstrap_servers='pulsar1:9092',retries=3)
     producer.send('rp4-kafka-1', json.dumps(row).encode('utf-8'))
     producer.flush()
     print("sent kafka")
     
+    # Web Sockets
     import socket
     import requests
     import websocket, base64, json
@@ -41,13 +44,24 @@ pip3 install pulsar-client=='2.9.1[all]'
     base64_bytes = base64.b64encode(message_bytes)
     base64_message = base64_bytes.decode('ascii')
     ws.send(json.dumps({ 'payload' : base64_message, 'properties': { 'device' : 'jetson2gb'},'key': str(uuid2), 'context' : 5 }))
-
     response =  json.loads(ws.recv())
     if response['result'] == 'ok':
             print ('Message published successfully')
     else:
             print ('Failed to publish message:', response)
     ws.close()
+    
+    # Native Pulsar Protocol
+    import pulsar
+    from pulsar.schema import *
+    class enviroplus(Record):
+        adjtemp = String()
+    
+    client = pulsar.Client('pulsar://pulsar1:6650')
+    producer = client.create_producer(topic='persistent://public/default/rp4enviroplus' ,schema=JsonSchema(enviroplus),properties={"producer-name": 
+               "enviroplus-py-sensor","producer-id": "enviroplus-sensor" })
+    enviroRec = enviroplus()
+    producer.send(enviroRec,partition_key=str(uniqueid))
     
 ````
 
@@ -77,6 +91,13 @@ pip3 install pulsar-client=='2.9.1[all]'
 * https://github.com/tspannhw/FLiP-Py-Pi-KoP
 * https://github.com/tspannhw/FLiP-Energy/
 
+
+### AoP, MoP, KoP, RoP
+
+* https://github.com/streamnative/aop
+* https://github.com/streamnative/rop
+* https://github.com/streamnative/kop
+* https://github.com/streamnative/mop
 
 
 ### References
