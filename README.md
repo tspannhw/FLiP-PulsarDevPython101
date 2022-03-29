@@ -75,6 +75,14 @@ pip3 install pulsar-client=='2.9.1[all]'
 * Via AMQP Protocol (AMQP-on-Pulsar: AoP) ie. RabbitMQ
 * Via HTTP Post REST
 
+
+### Main Resources
+
+* https://streamnative.io/pulsar-python/
+* https://2022.pythonwebconf.com/presentations/apache-pulsar-development-101-with-python
+* https://www.slideshare.net/bunkertor/python-web-conference-2022-apache-pulsar-development-101-with-python-f-lippy
+
+
 ### Pulsar Python Examples
 
 * https://github.com/tspannhw/FLiP-Pi-BreakoutGarden
@@ -109,3 +117,8 @@ pip3 install pulsar-client=='2.9.1[all]'
 * https://www.slideshare.net/bunkertor/python-web-conference-2022-apache-pulsar-development-101-with-python-f-lippy
 * https://websockets.readthedocs.io/en/stable/intro/index.html
 * https://github.com/tspannhw/FLiP-IoT/blob/main/wsreader.py
+* https://github.com/apache/rocketmq-client-python
+
+### Videos
+
+* https://www.youtube.com/watch?v=sPGyl6XgGHw
